@@ -29,5 +29,11 @@ pipeline {
                 }
             }
         }
+        stage('Deploy image') {
+            steps {
+                bat 'docker rm -f tp4-pipeline >NUL 2>&1 || ver >NUL'
+                bat 'docker run -d --name tp4-pipeline -p 8082:80 %IMAGE_NAME%:%BUILD_NUMBER%'
+            }
+        }
     }
 }
